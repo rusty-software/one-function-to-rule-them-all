@@ -27,7 +27,16 @@
               [(min (first acc) elem) (max (second acc) elem)])) [] a-seq))
 
 (defn insert [sorted-seq n]
-  [:-])
+  (cond
+    (empty? sorted-seq) [n]
+    (= 1 (count sorted-seq)) (min-max-element (concat sorted-seq [n]))
+    :else (loop [acc []
+                 coll sorted-seq]
+            (if (empty? coll)
+              acc
+              (if (< n (first coll))
+                (concat acc [n] coll)
+                (recur (concat acc [(first coll)]) (rest coll)))))))
 
 (defn insertion-sort [a-seq]
   [:-])
