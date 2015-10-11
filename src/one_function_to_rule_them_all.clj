@@ -8,8 +8,12 @@
     ""
     (reduce (fn [s elem] (str s " " elem)) a-seq)))
 
+;; doing this without an accumulator seems awkward
 (defn my-interpose [x a-seq]
-  [:-])
+  (reduce (fn [acc elem]
+            (if (empty? acc)
+              (conj acc elem)
+              (conj acc x elem))) [] a-seq))
 
 (defn my-count [a-seq]
   :-)
