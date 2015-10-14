@@ -69,5 +69,15 @@
   (fn [elem]
     (reduce (fn [acc pred] (and acc (pred elem))) ((pred-and pred1 pred2) elem) preds))))
 
-(defn my-map [f a-seq]
-  [:-])
+(defn my-map
+  ([f a-seq]
+   (reduce (fn [acc elem] (conj acc (f elem))) [] a-seq))
+  ([f seq1 seq2]
+   (loop [acc []
+          coll1 seq1
+          coll2 seq2]
+     (if (or (empty? coll1) (empty? coll2))
+       acc
+       (recur (conj acc (f (first coll1) (first coll2))) (rest coll1) (rest coll2)))))
+  ([f seq1 seq2 & seqs]
+   (reduce (fn [acc cur-seq] (my-map f acc cur-seq)) (my-map f seq1 seq2) seqs)))
