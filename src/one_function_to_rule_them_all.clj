@@ -55,11 +55,19 @@
 (defn count-params [& args]
   (reduce (fn [acc elem] (inc acc)) 0 args))
 
-(defn my-* [x]
-  :-)
+(defn my-*
+  ([] 1)
+  ([x] x)
+  ([x y] (* x y))
+  ([x y & args] (reduce * (* x y) args)))
 
-(defn pred-and [x]
-  (fn [x] :-))
+(defn pred-and
+ ([] (constantly true))
+ ([pred] pred)
+ ([pred1 pred2] (fn [elem] (and (pred1 elem) (pred2 elem))))
+ ([pred1 pred2 & preds]
+  (fn [elem]
+    (reduce (fn [acc pred] (and acc (pred elem))) ((pred-and pred1 pred2) elem) preds))))
 
 (defn my-map [f a-seq]
   [:-])
