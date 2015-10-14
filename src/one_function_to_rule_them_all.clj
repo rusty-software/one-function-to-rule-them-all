@@ -46,8 +46,11 @@
   (reduce (fn [acc elem]
             (toggle acc elem)) #{} a-seq))
 
-(defn minus [x]
-  :-)
+(defn minus
+  ([x]
+   (minus 0 x))
+  ([x y]
+   (- x y)))
 
 (defn count-params [x]
   :-)
