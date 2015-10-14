@@ -52,8 +52,8 @@
   ([x y]
    (- x y)))
 
-(defn count-params [x]
-  :-)
+(defn count-params [& args]
+  (reduce (fn [acc elem] (inc acc)) 0 args))
 
 (defn my-* [x]
   :-)
